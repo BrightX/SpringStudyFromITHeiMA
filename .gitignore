@@ -1,0 +1,12 @@
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+target/
+HELP.md
+!**/src/main/**
+!**/src/test/**
+!docs/
+
+.vscode/
