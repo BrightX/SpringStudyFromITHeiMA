@@ -3,6 +3,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="userDao" class="com.bright.dao.impl.UserDaoImpl"/>
+    <!--1. 通过无参构造方法创建对象-->
+    <!--<bean id="userDao" class="com.bright.dao.impl.UserDaoImpl" init-method="init" destroy-method="destroy"/>-->
+
+    <!--2. 通过工厂静态方法创建对象-->
+    <!--<bean id="userDao" class="com.bright.factory.StaticFactory" factory-method="getUserDao"/>-->
+
+    <!--3. 通过工厂实例获取对象 -->
+    <bean id="factory" class="com.bright.factory.DynamicFactory"/>
+    <bean id="userDao" factory-bean="factory" factory-method="getUserDao"/>
 
 </beans>
