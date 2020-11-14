@@ -10,7 +10,64 @@
     <!--<bean id="userDao" class="com.bright.factory.StaticFactory" factory-method="getUserDao"/>-->
 
     <!--3. 通过工厂实例获取对象 -->
-    <bean id="factory" class="com.bright.factory.DynamicFactory"/>
-    <bean id="userDao" factory-bean="factory" factory-method="getUserDao"/>
+    <!--<bean id="factory" class="com.bright.factory.DynamicFactory"/>-->
+    <!--<bean id="userDao" factory-bean="factory" factory-method="getUserDao"/>-->
 
+    <!--通过set方法依赖注入-->
+    <!--<bean id="userService" class="com.bright.service.impl.UserServiceImpl">-->
+    <!--    <property name="userDao" ref="userDao"/>-->
+    <!--</bean>-->
+
+    <!--通过P命名空间注入-->
+    <!--<bean id="userService" class="com.bright.service.impl.UserServiceImpl" p:userDao-ref="userDao"/>-->
+
+    <!--通过构造方法注入-->
+    <bean id="userService" class="com.bright.service.impl.UserServiceImpl">
+        <constructor-arg name="userDao" ref="userDao"/>
+    </bean>
+
+    <!--基本类型注入-->
+    <!--<bean id="userDao" class="com.bright.dao.impl.UserDaoImpl">-->
+    <!--    <property name="username" value="张山"/>-->
+    <!--    <property name="age" value="18"/>-->
+    <!--</bean>-->
+
+    <!--集合类型注入-->
+    <bean id="userDao" class="com.bright.dao.impl.UserDaoImpl">
+        <property name="username" value="张山"/>
+        <property name="age" value="18"/>
+        <property name="strList">
+            <list>
+                <value>aaa</value>
+                <value>bbb</value>
+                <value>ccc</value>
+            </list>
+        </property>
+        <property name="userMap">
+            <map>
+                <entry key="user1" value-ref="user01"/>
+                <entry key="user2" value-ref="user02"/>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="p1">ppt01</prop>
+                <prop key="p2">ppt02</prop>
+                <prop key="p3">ppt03</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="user01" class="com.bright.domain.User">
+        <property name="name" value="张山"/>
+        <property name="addr" value="北京"/>
+    </bean>
+
+    <bean id="user02" class="com.bright.domain.User">
+        <property name="name" value="李斯"/>
+        <property name="addr" value="天津"/>
+    </bean>
+
+    <!-- 引入其他配置文件(分模块开发) -->
+    <import resource="applicationContext-user.xml"/>
 </beans>
