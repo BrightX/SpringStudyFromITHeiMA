@@ -13,9 +13,9 @@ import java.lang.reflect.Method;
 public class ProxyTest {
     public static void main(String[] args) {
         // 目标对象
-        Target target = new Target();
+        final Target target = new Target();
         // 增强对象
-        Advice advice = new Advice();
+        final Advice advice = new Advice();
 
         // 返回值就是动态生成的代理对象 基于 cglib
         // 1. 创建增强器
