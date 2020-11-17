@@ -1,4 +1,4 @@
-package com.bright.controller;
+package com.bright.web;
 
 import com.bright.service.UserService;
 import org.springframework.context.ApplicationContext;
