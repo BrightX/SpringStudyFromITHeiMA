@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+">
+    <!--目标对象 内部方法就是切点-->
+
+    <!--配置平台事务管理器-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--通知 事务的增强-->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <!--设置事务的属性信息-->
+        <tx:attributes>
+            <tx:method name="transfer" isolation="READ_COMMITTED" read-only="false"/>
+            <tx:method name="save" isolation="READ_COMMITTED" read-only="false"/>
+            <tx:method name="findAll" isolation="READ_COMMITTED" read-only="true"/>
+            <tx:method name="update*" isolation="READ_COMMITTED" read-only="false"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--配置事务的AOP织入-->
+    <aop:config>
+        <aop:advisor advice-ref="txAdvice" pointcut="execution(* com.bright.service.impl.*.*(..))"/>
+    </aop:config>
+
+</beans>
