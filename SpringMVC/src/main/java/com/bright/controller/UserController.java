@@ -2,6 +2,7 @@ package com.bright.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author 徐亮亮
@@ -10,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class UserController {
 
-    @RequestMapping("/quick")
+    // @RequestMapping(value = "/quick", method = RequestMethod.GET, params = {"username"})
+    @RequestMapping(value = "/quick")
     public String save() {
         System.out.println("Controller save is running...");
-        return "success.jsp";
+        return "success";
     }
 }
