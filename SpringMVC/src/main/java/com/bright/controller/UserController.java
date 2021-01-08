@@ -1,17 +1,23 @@
 package com.bright.controller;
 
 import com.bright.domain.User;
+import com.bright.domain.VO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author 徐亮亮
@@ -98,4 +104,86 @@ public class UserController {
         user.setAge(19);
         return user;
     }
+
+    // === === === === === === === === === === === === === === === === === === === ===
+
+    @RequestMapping("/quick11")
+    @ResponseBody
+    public void save11(String username, Integer age) {
+        System.out.println("username = " + username);
+        System.out.println("age = " + age);
+    }
+
+    @RequestMapping("/quick12")
+    @ResponseBody
+    public void save12(User user) {
+        System.out.println("user = " + user);
+    }
+
+    @RequestMapping("/quick13")
+    @ResponseBody
+    public void save13(String[] strs) {
+        System.out.println("strs = " + Arrays.toString(strs));
+    }
+
+    @RequestMapping("/quick14")
+    @ResponseBody
+    public void save14(VO vo) {
+        System.out.println("vo = " + vo);
+    }
+
+    @RequestMapping("/quick15")
+    @ResponseBody
+    public void save15(@RequestBody List<User> userList) {
+        System.out.println("userList = " + userList);
+    }
+
+    @RequestMapping("/quick16")
+    @ResponseBody
+    public void save16(@RequestParam(value = "name", required = false, defaultValue = "default user") String username) {
+        System.out.println("username = " + username);
+    }
+
+    @RequestMapping("/quick17/{username}")
+    @ResponseBody
+    public void save17(@PathVariable(value = "username") String username) {
+        System.out.println("username = " + username);
+    }
+
+    @RequestMapping("/quick18")
+    @ResponseBody
+    public void save18(Date date) {
+        System.out.println("date = " + date);
+    }
+
+    @RequestMapping("/quick19")
+    @ResponseBody
+    public void save19(HttpServletRequest request, HttpSession session, HttpServletResponse response) {
+        System.out.println("request = " + request);
+        System.out.println("response = " + response);
+        System.out.println("session = " + session);
+    }
+
+    @RequestMapping("/quick20")
+    @ResponseBody
+    public void save20(@RequestHeader("User-Agent") String userAgent) {
+        System.out.println("userAgent = " + userAgent);
+    }
+
+    @RequestMapping("/quick21")
+    @ResponseBody
+    public void save21(@CookieValue("JSESSIONID") String jSessionId) {
+        System.out.println("jSessionId = " + jSessionId);
+    }
+
+    @RequestMapping("/quick22")
+    @ResponseBody
+    public void save22(String username, MultipartFile upload) throws IOException {
+        System.out.println("username = " + username);
+        // 获取文件名称
+        String filename = upload.getOriginalFilename();
+        // 保存文件
+        upload.transferTo(new File("D:\\temp\\" + filename));
+    }
+
 }
