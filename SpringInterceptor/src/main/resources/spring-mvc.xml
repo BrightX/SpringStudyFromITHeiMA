@@ -24,11 +24,27 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <!--对哪些资源进行拦截操作-->
-            <mvc:mapping path="/**"/>
+            <mvc:mapping path="/target/**"/>
             <!--对哪些资源排除拦截操作-->
             <mvc:exclude-mapping path="/login"/>
             <bean class="com.bright.interceptor.MyInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
+
+    <!--配置异常处理器-->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <!--默认错误视图，value对应错误视图页面-->
+        <property name="defaultErrorView" value="error"/>
+        <property name="exceptionMappings">
+            <map>
+                <entry key="java.lang.ClassCastException" value="error1"/>
+                <entry key="java.lang.NumberFormatException" value="error2"/>
+                <entry key="com.bright.exception.MyException" value="error3"/>
+            </map>
+        </property>
+    </bean>
+
+    <!--配置自定义异常处理器-->
+    <bean class="com.bright.resolver.MyExceptionResolver"/>
 
 </beans>
